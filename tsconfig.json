@@ -17,4 +17,9 @@
     // Обязательное поле при использовании с esbuild
     "isolatedModules": true
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }

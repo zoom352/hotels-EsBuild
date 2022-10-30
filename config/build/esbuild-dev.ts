@@ -1,8 +1,8 @@
-const ESBuild = require('esbuild');
-const path = require('path');
-const config = require('./esbuild-config')
+import ESBuild from 'esbuild';
+import path from 'path';
+import config from './esbuild-config'
 
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 ESBuild.serve({
     servedir: config.outdir,
