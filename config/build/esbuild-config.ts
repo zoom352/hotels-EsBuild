@@ -25,6 +25,15 @@ const config: BuildOptions = {
         '.jpg': 'file'
     },
     plugins: [CleanPlugin],
+    watch: isDev && {
+        onRebuild(err, result) {
+            if(err){
+                console.log(err)
+            } else {
+                console.log('build...')
+            }
+        }
+    }
 }
 
 export default config;
