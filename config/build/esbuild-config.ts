@@ -1,6 +1,7 @@
 import ESBuild, {BuildOptions} from 'esbuild';
 import path from 'path';
 import {CleanPlugin} from "./plugins/CleanPlugin";
+import {HTMLPlugin} from "./plugins/HTMLPlugin";
 
 const mode = process.env.MODE || 'development';
 
@@ -19,21 +20,17 @@ const config: BuildOptions = {
     bundle: true,
     minify: isProd,
     sourcemap: isDev,
+    metafile: true,
     loader: {
         '.png': 'file',
         '.svg': 'file',
         '.jpg': 'file'
     },
-    plugins: [CleanPlugin],
-    watch: isDev && {
-        onRebuild(err, result) {
-            if(err){
-                console.log(err)
-            } else {
-                console.log('build...')
-            }
-        }
-    }
+    plugins: [
+        CleanPlugin,
+        HTMLPlugin({
+            title: 'zoom'
+        })],
 }
 
 export default config;
