@@ -1,3 +1,8 @@
+.wrap {
+    display: flex;
+    margin-left: 40px;
+}
+
 .title {
     display: flex;
     justify-content: space-between;
@@ -10,3 +15,5 @@
 .wrapperList {
     /*margin-left: 10%;*/
 }
+
+

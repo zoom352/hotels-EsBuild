@@ -2,6 +2,7 @@ import WorkBox from "../../Components/workBox/workBox";
 import SimpleSlider from "../../Components/Slider/Slider";
 import React from "react";
 import "./hotelList.module.css"
+import CardIcon from "../../Components/Card/cardIcon";
 import Card from "../../Components/Card/card";
 
 const HotelList = () => {
@@ -30,21 +31,30 @@ const HotelList = () => {
     ]
 
     return (
-        <WorkBox height={664} width={602}>
-            <div className="wrapperList">
-                <div className="title">
-                    <h3>Отели @ Киев</h3>
-                    <h3 className="dateTitle">20 Января 2023</h3>
-                </div>
-                <SimpleSlider
-                    SliderData={SliderData}
+        <div className="wrap">
+            <WorkBox height={464} width={402}>
+                <Card
+                    withoutIcon={true}
                 />
-                <h3>Добавленно в избранное: 3 отеля</h3>
-                <div>
-                    <Card />
+            </WorkBox>
+            <WorkBox height={664} width={602}>
+                <div className="wrapperList">
+                    <div className="title">
+                        <h3>Отели @ Киев</h3>
+                        <h3 className="dateTitle">20 Января 2023</h3>
+                    </div>
+                    <SimpleSlider
+                        SliderData={SliderData}
+                    />
+                    <h3>Добавленно в избранное: 3 отеля</h3>
+                    <div>
+                        {/*<CardIcon />*/}
+                        <CardIcon />
+                        {/*<Card />*/}
+                    </div>
                 </div>
-            </div>
-        </WorkBox>
+            </WorkBox>
+        </div>
     )
 }
 
