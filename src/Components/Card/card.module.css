@@ -1,0 +1,79 @@
+.card {
+    display: flex;
+}
+
+.hotelName {
+    margin-top: 0px;
+}
+
+.insideCard {
+    margin-left: 3%;
+    width: 70%;
+}
+
+.save {
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkIn {
+    margin-top: -8%;
+    color: #878787;
+}
+
+.tire {
+    margin-left: 5%;
+}
+
+.tire2 {
+    margin-left: 5%;
+}
+
+.wrapPrice {
+    display: flex;
+    margin-top: 10px;
+    margin-left: -9%;
+}
+
+.price {
+    margin-left: -25%;
+    color: #878787;
+    width: 28px;
+    height: 18px;
+}
+
+.valut {
+    margin-left: 20%;
+}
+
+.icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(65, 82, 46, 0.05);
+    border-radius: 40px;
+}
+
+.roof {
+    margin-left: 21%;
+    margin-top: 15%;
+}
+
+.house {
+    margin-left: 29%;
+    margin-top: -27%;
+}
+
+.rating {
+    margin-left: -42%;
+    margin-top: -17px;
+}
+
+/*.emptyHeart:hover {*/
+/*    box-shadow: 0px 20px 35px rgba(0, 0, 0, 0.06);*/
+/*    transform: translateY(-5px);*/
+/*    color: red;*/
+/*}*/
+
+/*.shadowHeart {*/
+
+/*}*/

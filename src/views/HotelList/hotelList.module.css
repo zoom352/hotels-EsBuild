@@ -1,0 +1,12 @@
+.title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dateTitle {
+    justify-content: flex-end;
+}
+
+.wrapperList {
+    /*margin-left: 10%;*/
+}

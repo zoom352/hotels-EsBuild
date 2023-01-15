@@ -1,0 +1,13 @@
+.mainWrapper {
+    width: 500px;
+    display: flex;
+}
+
+.nextArrow {
+    margin-top: 4%;
+    /*margin-left: -8%;*/
+}
+
+.prevArrow {
+    margin-top: 4%;
+}
