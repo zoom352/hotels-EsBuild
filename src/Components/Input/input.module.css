@@ -1,0 +1,14 @@
+.wrapInput {
+    /*margin-top: 20px;*/
+}
+
+input {
+    background: #FFFFFF;
+    border: 1px solid #C9CACC;
+    border-radius: 4px;
+    margin-top: 20px;
+
+    padding-left: 20px;
+    height:24px;
+    font-size: 18px;
+}

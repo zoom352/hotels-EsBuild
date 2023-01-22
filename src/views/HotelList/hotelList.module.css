@@ -3,6 +3,10 @@
     margin-left: 40px;
 }
 
+.wrapperBlocks {
+    margin-top: -20px;
+}
+
 .title {
     display: flex;
     justify-content: space-between;
@@ -16,4 +20,23 @@
     /*margin-left: 10%;*/
 }
 
+.prokrutka {
+    /*width: 70%; !* ширина нашего блока *!*/
+    /*height: 450px; !* высота нашего блока *!*/
+    background: #fff; /* цвет фона, белый */
+    overflow: auto; /* свойство для прокрутки по горизонтали. Автоматом, если больше блока */
+    overflow-x: hidden;
+}
 
+.prokrutka::-webkit-scrollbar {
+    width: 2px;               /* ширина всей полосы прокрутки */
+}
+
+.prokrutka::-webkit-scrollbar-track {
+    background: #E7E7E7;
+}
+
+.prokrutka::-webkit-scrollbar-thumb {
+    background: #41522E;
+    border-radius: 2px;       /* округлось бегунка */
+}

@@ -4,6 +4,7 @@ import React from "react";
 import "./hotelList.module.css"
 import CardIcon from "../../Components/Card/cardIcon";
 import Card from "../../Components/Card/card";
+import SearchHotels from "../../Components/SearchHotels";
 
 const HotelList = () => {
 
@@ -32,12 +33,25 @@ const HotelList = () => {
 
     return (
         <div className="wrap">
-            <WorkBox height={464} width={402}>
-                <Card
-                    withoutIcon={true}
-                />
-            </WorkBox>
-            <WorkBox height={664} width={602}>
+            <div className="wrapperBlocks">
+                <WorkBox height={464} width={402}>
+                    <SearchHotels />
+                </WorkBox>
+                <div style={{ marginTop: "19px"}}>
+                    {/*<Favorite />*/}
+                    <WorkBox height={464} width={402}>
+                        <div style={{height: "420px"}} className="prokrutka">
+                            <Card withoutIcon={true} />
+                            <Card withoutIcon={true} />
+                            <Card withoutIcon={true} />
+                            <Card withoutIcon={true} />
+                            <Card withoutIcon={true} />
+                            <Card withoutIcon={true} />
+                        </div>
+                    </WorkBox>
+                </div>
+            </div>
+            <WorkBox height={946} width={602}>
                 <div className="wrapperList">
                     <div className="title">
                         <h3>Отели @ Киев</h3>
@@ -47,10 +61,14 @@ const HotelList = () => {
                         SliderData={SliderData}
                     />
                     <h3>Добавленно в избранное: 3 отеля</h3>
-                    <div>
-                        {/*<CardIcon />*/}
+                    <div style={{height: "680px"}} className="prokrutka">
                         <CardIcon />
-                        {/*<Card />*/}
+                        <CardIcon />
+                        <CardIcon />
+                        <CardIcon />
+                        <CardIcon />
+                        <CardIcon />
+                        <CardIcon />
                     </div>
                 </div>
             </WorkBox>
