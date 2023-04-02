@@ -7,35 +7,43 @@ import house from "../../../assets/house.png"
 import Rating from "../rating/rating";
 import Like from "../Like/like";
 import Card from "./card";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {hotelSlice} from "../../store/reducers/HotelsSlice";
 
 const CardIcon = (props: any) => {
+    const {
+        hotelName
+    } = props
+    const {hotels} = useAppSelector(state => state.hotelReducer)
+    const dispatch = useAppDispatch()
+
+    const onClick = (hotelId: any) => {
+        dispatch(hotelSlice.actions.favoriteHotelsAdd({
+            hotelId
+        }))
+    }
 
     return (
         <div>
-            <div className="card">
-                <div className="icon">
-                    <img className="roof" src={roof}/>
-                    <img className="house" src={house}/>
+            {hotels.map((item: any) => {
+                return (
+            <div>
+                <div className="card">
+                    <div className="icon">
+                        <img className="roof" src={roof}/>
+                        <img className="house" src={house}/>
+                    </div>
+                           <Card
+                               onClick={() => onClick(item.hotelId)}
+                               hotelName={item.hotelName}
+                               stars={item.stars}
+                               price={item.priceAvg}
+                           />
                 </div>
-                <Card />
-                {/*<div className="insideCard">*/}
-                {/*    <div className="save">*/}
-                {/*        <p className="hotelName">Kiev Grand</p>*/}
-                {/*        <Like />*/}
-                {/*    </div>*/}
-                {/*    <div className="checkIn">*/}
-                {/*        <p>20 January 2023 <span className="tire">-</span><span className="tire2">1 day</span></p>*/}
-                {/*    </div>*/}
-                {/*    <div className="rating">*/}
-                {/*        <Rating star={3}/>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<div className="wrapPrice">*/}
-                {/*    <p className="price">Price:</p>*/}
-                {/*    <p className="valut">23000 р.</p>*/}
-                {/*</div>*/}
+                <hr/>
             </div>
-            <hr/>
+                )
+            })}
         </div>
     );
 };

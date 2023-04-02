@@ -4,26 +4,30 @@ import Rating from "../rating/rating";
 
 const Card = (props: any) => {
     const {
-        withoutIcon
+        withoutIcon,
+        hotelName,
+        stars,
+        price,
+        onClick
     } = props
 
     return (
         <>
             <div className="insideCard">
                 <div className="like">
-                    <Like />
+                    <Like onClick={onClick}/>
                 </div>
                 <div className="save">
-                    <p className="hotelName">Kiev Grand</p>
+                    <p className="hotelName">{hotelName}</p>
                 </div>
                 <div className="checkIn">
                     <p>20 January 2023 <span className="tire">-</span><span className="tire2">1 day</span></p>
                 </div>
                 <div className="rating">
-                    <Rating star={3}/>
+                    <Rating star={stars}/>
                     <div className="wrapPrice">
                         <p className="price">Price:</p>
-                        <p className="valut">23000 р.</p>
+                        <p className="valut">{price} р.</p>
                     </div>
                 </div>
             </div>

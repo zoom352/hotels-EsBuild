@@ -3,13 +3,15 @@ import "./index.module.css"
 
 const Button = (props: any) => {
     const {
-        title
+        title,
+        onClick
     } = props
 
     return (
         <>
             <button
                 className="button"
+                onClick={onClick}
             >
                 {title}
             </button>

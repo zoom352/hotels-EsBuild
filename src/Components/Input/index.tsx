@@ -6,14 +6,17 @@ const Input = (props: any) => {
         width = 345,
         height = 50,
         placeholder = "",
-        type
+        type,
+        onChange
     } = props
+
     return (
         <div className="wrapInput">
             <input
                 type={type}
                 style={{width: width + "px", height: height + "px"}}
                 placeholder={placeholder}
+                onChange={event => onChange(event)}
             />
         </div>
     );

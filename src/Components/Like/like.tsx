@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import "./like.module.css"
 
-const Like = () => {
+const Like = ({onClick}: any) => {
     const [heart, setHeart] = useState(["heart"])
 
     const likeChange = () => {
+        onClick()
         if (heart.join(" ") === "heartRed") {
             setHeart(["heart"])
         } else {
