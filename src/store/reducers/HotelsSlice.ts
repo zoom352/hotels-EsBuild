@@ -76,7 +76,7 @@ export const hotelSlice = createSlice({
     },
 })
 
-const hotelSliceReducer = hotelSlice.reducer;
+const hotelSliceReducer = hotelSlice.reducer
 
 const saveStateToLocalStorage = (state: HotelsState) => {
     try {
@@ -85,8 +85,8 @@ const saveStateToLocalStorage = (state: HotelsState) => {
     } catch (error) {
         console.log("Unable to save state to localStorage:", error);
     }
-};
+}
 
 // добавляем слушателя для сохранения данных в localStorage после каждого изменения favoriteHotels
 
-export default hotelSliceReducer;
+export default hotelSliceReducer

@@ -1,4 +1,4 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
+import {combineReducers, configureStore, Middleware} from "@reduxjs/toolkit";
 import hotelReducer from "./reducers/HotelsSlice"
 import {hotelAPI} from "../services/PostService";
 
@@ -7,11 +7,23 @@ const rootReducer = combineReducers({
     [hotelAPI.reducerPath]: hotelAPI.reducer
 })
 
+const localStorageMiddleware: Middleware = store => next => action => {
+    const result = next(action);
+    localStorage.setItem('state', JSON.stringify(store.getState()));
+    return result;
+}
+
+const persistedState = localStorage.getItem('state')
+    ? JSON.parse(localStorage.getItem('state'))
+    : {}
+
 export const setupStore = () => {
     return configureStore({
         reducer: rootReducer,
+        preloadedState: persistedState,
+        // middleware: [localStorageMiddleware]
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(hotelAPI.middleware)
+            getDefaultMiddleware().concat(localStorageMiddleware) // hotelAPI.middleware
     })
 }
 
