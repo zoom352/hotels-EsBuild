@@ -7,16 +7,22 @@ const Input = (props: any) => {
         height = 50,
         placeholder = "",
         type,
-        onChange
+        onChange,
+        value,
+        name,
+        onBlur
     } = props
 
     return (
         <div className="wrapInput">
             <input
                 type={type}
+                value={value}
                 style={{width: width + "px", height: height + "px"}}
                 placeholder={placeholder}
                 onChange={event => onChange(event)}
+                name={name}
+                onBlur={event => onBlur(event)}
             />
         </div>
     );

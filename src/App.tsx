@@ -33,7 +33,7 @@ import {IRoute, privateRoutes, publicRoutes, RouteNames} from "./router";
 // }
 
 const App = () => {
-    const [isAuth, setIsAuth] = useState(true)
+    const [isAuth, setIsAuth] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
