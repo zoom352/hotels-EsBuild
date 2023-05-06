@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import Input from "../Input";
 import "./index.module.css"
 import Button from "../../UI/button";
 import {hotelSlice} from "../../store/reducers/HotelsSlice";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {fetchHotelsThunk} from "../../store/reducers/ActionCreators";
+import Input from "../../UI/Input";
 
 const SearchHotels = () => {
     const {hotels, days, checkIn} = useAppSelector(state => state.hotelReducer)

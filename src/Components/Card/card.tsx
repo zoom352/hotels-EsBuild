@@ -8,14 +8,22 @@ const Card = (props: any) => {
         hotelName,
         stars,
         price,
-        onClick
+        onClick,
+        deleteFavoriteHotel,
+        addFavoriteHotel,
+        hotelId
     } = props
 
     return (
         <>
             <div className="insideCard">
                 <div className="like">
-                    <Like onClick={onClick}/>
+                    <Like
+                        onClick={onClick}
+                        deleteFavoriteHotel={deleteFavoriteHotel}
+                        addFavoriteHotel={addFavoriteHotel}
+                        hotelId={hotelId}
+                    />
                 </div>
                 <div className="save">
                     <p className="hotelName">{hotelName}</p>

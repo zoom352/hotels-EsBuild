@@ -8,6 +8,7 @@ export interface IHotel {
     //     "lat": string,
     //     "lon": string
     // }
+    hotelId: number,
     query: string,
     lang: string,
     lookFor: string,

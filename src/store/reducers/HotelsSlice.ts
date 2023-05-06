@@ -13,24 +13,11 @@ interface HotelsState {
     checkOut: string
 }
 
-const loadStateFromLocalStorage = () => {
-    try {
-        const serializedState = localStorage.getItem("favoriteHotels");
-        if (serializedState === null) {
-            return undefined;
-        }
-        return JSON.parse(serializedState);
-    } catch (error) {
-        console.log("Unable to load state from localStorage:", error);
-        return undefined;
-    }
-};
-
 const initialState: HotelsState = {
     hotels: [],
     isLoading: false,
     error: "",
-    favoriteHotels: loadStateFromLocalStorage() || [],
+    favoriteHotels: [],
 
     query: "",
     days: 0,
@@ -61,6 +48,9 @@ export const hotelSlice = createSlice({
                 }
             })
         },
+        favoriteHotelsDelete(state, action: PayloadAction<any>) {
+            state.favoriteHotels = state.favoriteHotels.filter((item: any) => item.hotelId !== action.payload.hotelId)
+        },
         onChangeLocation(state, action: PayloadAction<string>) {
             state.query = action.payload
         },
@@ -77,16 +67,5 @@ export const hotelSlice = createSlice({
 })
 
 const hotelSliceReducer = hotelSlice.reducer
-
-const saveStateToLocalStorage = (state: HotelsState) => {
-    try {
-        const serializedState = JSON.stringify(state.favoriteHotels);
-        localStorage.setItem("favoriteHotels", serializedState);
-    } catch (error) {
-        console.log("Unable to save state to localStorage:", error);
-    }
-}
-
-// добавляем слушателя для сохранения данных в localStorage после каждого изменения favoriteHotels
 
 export default hotelSliceReducer

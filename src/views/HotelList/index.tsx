@@ -7,6 +7,7 @@ import Card from "../../Components/Card/card";
 import SearchHotels from "../../Components/SearchHotels";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {fetchHotelsThunk} from "../../store/reducers/ActionCreators";
+import {hotelSlice} from "../../store/reducers/HotelsSlice";
 
 const SliderData = [
     {
@@ -57,6 +58,18 @@ const HotelList = () => {
         return <h2>Loading...</h2>
     }
 
+    const deleteFavoriteHotel = (hotelId: any) => {
+        dispatch(hotelSlice.actions.favoriteHotelsDelete({
+            hotelId
+        }))
+    }
+
+    const addFavoriteHotel = (hotelId: any) => {
+        dispatch(hotelSlice.actions.favoriteHotelsAdd({
+            hotelId
+        }))
+    }
+
     return (
         <div className="wrap">
             <div className="wrapperBlocks">
@@ -67,9 +80,11 @@ const HotelList = () => {
                     <WorkBox height={464} width={402}>
                         <h2 style={{ marginTop: "19px"}}>Favorites</h2>
                         <div style={{height: "420px"}} className="prokrutka">
-                            {favoriteHotels.map((item) => {
+                            {favoriteHotels.map((item: any) => {
                                 return (
                                     <Card
+                                        hotelId={item.hotelId}
+                                        deleteFavoriteHotel={deleteFavoriteHotel}
                                         withoutIcon={true}
                                         hotelName={item.hotelName}
                                         stars={item.stars}
@@ -90,9 +105,12 @@ const HotelList = () => {
                         <SimpleSlider
                             SliderData={SliderData}
                         />
-                        <h3>Добавленно в избранное: 3 отеля</h3>
+                        <h3>Добавленно в избранное: {favoriteHotels.length} отеля</h3>
                         <div style={{height: "680px"}} className="prokrutka">
-                        <CardIcon />
+                        <CardIcon
+                            deleteFavoriteHotel={deleteFavoriteHotel}
+                            addFavoriteHotel={addFavoriteHotel}
+                        />
                         </div>
                 </div>
             </WorkBox>
