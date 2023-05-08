@@ -3,7 +3,7 @@ import "./like.module.css"
 import {useAppSelector} from "../../hooks/redux"
 
 const Like = (
-    {onClick, hotelId, deleteFavoriteHotel, addFavoriteHotel}: any
+    {addFavoriteHotel, hotelId, deleteFavoriteHotel}: any
 ) => {
     const [heart, setHeart] = useState(["heart"])
     const {
@@ -14,23 +14,21 @@ const Like = (
     useEffect(() => {
         favoriteHotels.map((item: any) => {
             if(item.hotelId === hotelId) {
-                setHeart(["heartRed"])
+                setHeart([item.color])
             }
         })
-    }, [])
+        hotels.map((item: any) => {
+            if (item.hotelId === hotelId) {
+                setHeart([item.color || "heart"])
+            }
+        })
+    }, [favoriteHotels])
 
     const likeChange = () => {
         if (heart.join(" ") === "heartRed") {
             deleteFavoriteHotel(hotelId)
-            setHeart(["heart"])
-            hotels.map((item: any) => {
-                if (item.hotelId === hotelId) {
-                    setHeart(["heart"])
-                }
-            })
         } else {
-            setHeart(["heartRed"])
-            onClick()
+            addFavoriteHotel()
         }
     }
 

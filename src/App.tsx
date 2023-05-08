@@ -4,6 +4,7 @@ import './index.css'
 import Logo from './Logo.png'
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import {IRoute, privateRoutes, publicRoutes, RouteNames} from "./router";
+import {useAppSelector} from "./hooks/redux";
 // import { Route, Switch, Redirect } from "react-router-dom"
 
 
@@ -33,7 +34,9 @@ import {IRoute, privateRoutes, publicRoutes, RouteNames} from "./router";
 // }
 
 const App = () => {
-    const [isAuth, setIsAuth] = useState(false)
+    const {
+        isAuth
+    } = useAppSelector(state => state.isAuthReducer)
     const navigate = useNavigate()
 
     useEffect(() => {

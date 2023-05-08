@@ -3,8 +3,11 @@ import Input from "../../UI/Input";
 import {UseInput} from "../../hooks/UseInput";
 import {useNavigate} from "react-router-dom";
 import {RouteNames} from "../../router";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {isAuthSlice} from "../../store/reducers/AuthSlice";
 
 const Login = () => {
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const email = UseInput("", {isEmpty: true, minLength: 3, maxLengthError: 25, emailError: true})
     const password = UseInput("", {isEmpty: true, minLength: 5, maxLengthError: 8})
@@ -32,7 +35,13 @@ const Login = () => {
             name="password"
             type="text"
         />
-        <button disabled={!email.inputValid || !password.inputValid}>Enter</button>
+        <button
+            disabled={!email.inputValid || !password.inputValid}
+            onClick={() => {
+                navigate(RouteNames.HOTELS)
+                dispatch(isAuthSlice.actions.setIsAuth(true))}
+            }
+        >Enter</button>
         {/*<button onClick={() => navigate(RouteNames.HOTELS)}>Enter</button>*/}
     </div>
 }

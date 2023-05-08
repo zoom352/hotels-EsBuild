@@ -1,6 +1,7 @@
 import React from 'react';
 import Like from "../Like/like";
 import Rating from "../rating/rating";
+import {useAppSelector} from "../../hooks/redux";
 
 const Card = (props: any) => {
     const {
@@ -8,18 +9,20 @@ const Card = (props: any) => {
         hotelName,
         stars,
         price,
-        onClick,
         deleteFavoriteHotel,
         addFavoriteHotel,
-        hotelId
+        hotelId,
+        outputDateStr
     } = props
+    const {
+        days
+    } = useAppSelector(state => state.hotelReducer)
 
     return (
         <>
             <div className="insideCard">
                 <div className="like">
                     <Like
-                        onClick={onClick}
                         deleteFavoriteHotel={deleteFavoriteHotel}
                         addFavoriteHotel={addFavoriteHotel}
                         hotelId={hotelId}
@@ -29,7 +32,7 @@ const Card = (props: any) => {
                     <p className="hotelName">{hotelName}</p>
                 </div>
                 <div className="checkIn">
-                    <p>20 January 2023 <span className="tire">-</span><span className="tire2">1 day</span></p>
+                    <p>{outputDateStr} <span className="tire">-</span><span className="tire2">{days} day</span></p>
                 </div>
                 <div className="rating">
                     <Rating star={stars}/>

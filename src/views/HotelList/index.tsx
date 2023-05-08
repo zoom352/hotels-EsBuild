@@ -1,6 +1,6 @@
 import WorkBox from "../../Components/workBox/workBox";
 import SimpleSlider from "../../Components/Slider/Slider";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./hotelList.module.css"
 import CardIcon from "../../Components/Card/cardIcon";
 import Card from "../../Components/Card/card";
@@ -8,6 +8,8 @@ import SearchHotels from "../../Components/SearchHotels";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {fetchHotelsThunk} from "../../store/reducers/ActionCreators";
 import {hotelSlice} from "../../store/reducers/HotelsSlice";
+import Select from "../../UI/select"
+import {IHotel} from "../../models/IHotel";
 
 const SliderData = [
     {
@@ -32,31 +34,70 @@ const SliderData = [
     }
 ]
 
+const Price = [
+    { label: 'Sort price ascending', value: 'AscendingPrice' },
+    { label: 'Sort price descending', value: 'DescendingPrice' }
+]
+
+const rating = [
+    { label: 'Sort rating ascending', value: 'AscendingRating' },
+    { label: 'Sort rating descending', value: 'DescendingRating' }
+]
+
 const HotelList = () => {
     const {
         hotels,
         days,
         isLoading,
         checkIn,
+        query,
         favoriteHotels
     } = useAppSelector(state => state.hotelReducer)
-    // const {
-    //     data: hotels, isLoading
-    // } = hotelAPI.useFetchAllHotelsQuery<any>({
-    //     query: "moscow",
-    //     lang: "ru",
-    //     lookFor: "both",
-    //     limit: "10"
-    // })
     const dispatch = useAppDispatch()
+    const [selectedFruit, setSelectedFruit] = useState<string | null>(null);
+
+    const selectSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value
+        const fruit: any = getFruitByValue(value)
+        setSelectedFruit(fruit)
+    }
+
+    function getFruitByValue (event: React.ChangeEvent<HTMLSelectElement>) {
+        const value = event.target.value
+        switch (value) {
+            case 'AscendingPrice':
+                // @ts-ignore
+                dispatch(hotelSlice.actions.favoriteHotelsSortAscendingPrice())
+                break
+            case 'DescendingPrice':
+                // @ts-ignore
+                dispatch(hotelSlice.actions.favoriteHotelsSortDescendingPrice())
+                break
+            case 'AscendingRating':
+                // @ts-ignore
+                dispatch(hotelSlice.actions.favoriteHotelsSortAscendingStars())
+                break
+            case 'DescendingRating':
+                // @ts-ignore
+                dispatch(hotelSlice.actions.favoriteHotelsSortDescendingStars())
+                break
+        }
+    }
+
+    // Создаем объект Date из строки
+    const inputDate = new Date(checkIn)
+
+    // Получаем день, месяц и год из объекта Date
+    const day = inputDate.getDate();
+    const month = inputDate.toLocaleString("default", { month: "long" });
+    const year = inputDate.getFullYear();
+
+    // Создаем новую строку в формате "день месяц год"
+    const outputDateStr = `${day} ${month} ${year}`;
 
     useEffect(() => {
         dispatch(fetchHotelsThunk())
     }, [])
-
-    if(isLoading) {
-        return <h2>Loading...</h2>
-    }
 
     const deleteFavoriteHotel = (hotelId: any) => {
         dispatch(hotelSlice.actions.favoriteHotelsDelete({
@@ -78,11 +119,22 @@ const HotelList = () => {
                 </WorkBox>
                 <div style={{ marginTop: "19px"}}>
                     <WorkBox height={464} width={402}>
+                        <Select
+                            defaultValue="default"
+                            options={Price}
+                            onChange={getFruitByValue}
+                        />
+                        <Select
+                            defaultValue="default"
+                            options={rating}
+                            onChange={getFruitByValue}
+                        />
                         <h2 style={{ marginTop: "19px"}}>Favorites</h2>
                         <div style={{height: "420px"}} className="prokrutka">
                             {favoriteHotels.map((item: any) => {
                                 return (
                                     <Card
+                                        outputDateStr={outputDateStr}
                                         hotelId={item.hotelId}
                                         deleteFavoriteHotel={deleteFavoriteHotel}
                                         withoutIcon={true}
@@ -99,18 +151,21 @@ const HotelList = () => {
             <WorkBox height={946} width={602}>
                 <div className="wrapperList">
                      <div className="title">
-                        <h3>Отели @ Киев</h3>
-                        <h3 className="dateTitle">20 Января 2023</h3>
+                        <h3>Hotels @ {query}</h3>
+                        <h3 className="dateTitle">{outputDateStr}</h3>
                     </div>
                         <SimpleSlider
                             SliderData={SliderData}
                         />
-                        <h3>Добавленно в избранное: {favoriteHotels.length} отеля</h3>
+                        <h3>add to favorites: {favoriteHotels.length} hotels</h3>
                         <div style={{height: "680px"}} className="prokrutka">
-                        <CardIcon
-                            deleteFavoriteHotel={deleteFavoriteHotel}
-                            addFavoriteHotel={addFavoriteHotel}
-                        />
+                            {isLoading ?
+                                <h2>Loading</h2>
+                                : <CardIcon
+                                      outputDateStr={outputDateStr}
+                                      deleteFavoriteHotel={deleteFavoriteHotel}
+                                      addFavoriteHotel={addFavoriteHotel}
+                            />}
                         </div>
                 </div>
             </WorkBox>

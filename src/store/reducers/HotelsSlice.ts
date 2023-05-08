@@ -44,12 +44,30 @@ export const hotelSlice = createSlice({
         favoriteHotelsAdd(state, action: PayloadAction<any>) {
             state.hotels.map((item: any) => {
                 if(item.hotelId === action.payload.hotelId) {
+                    item.color = "heartRed"
                     state.favoriteHotels.push(item)
                 }
             })
         },
+        favoriteHotelsSortAscendingPrice(state, action: PayloadAction<any>) {
+            state.favoriteHotels = state.favoriteHotels.sort((a: any, b: any) => a.priceAvg - b.priceAvg)
+        },
+        favoriteHotelsSortDescendingPrice(state, action: PayloadAction<any>) {
+            state.favoriteHotels = state.favoriteHotels.sort((a: any, b: any) => b.priceAvg - a.priceAvg)
+        },
+        favoriteHotelsSortAscendingStars(state, action: PayloadAction<any>) {
+            state.favoriteHotels = state.favoriteHotels.sort((a: any, b: any) => a.stars - b.stars)
+        },
+        favoriteHotelsSortDescendingStars(state, action: PayloadAction<any>) {
+            state.favoriteHotels = state.favoriteHotels.sort((a: any, b: any) => b.stars - a.stars)
+        },
         favoriteHotelsDelete(state, action: PayloadAction<any>) {
             state.favoriteHotels = state.favoriteHotels.filter((item: any) => item.hotelId !== action.payload.hotelId)
+            state.hotels.map((item: any) => {
+                if(item.hotelId === action.payload.hotelId) {
+                    item.color = ""
+                }
+            })
         },
         onChangeLocation(state, action: PayloadAction<string>) {
             state.query = action.payload
@@ -63,7 +81,7 @@ export const hotelSlice = createSlice({
         onChangeCheckout(state, action: PayloadAction<string>) {
             state.checkOut = action.payload
         },
-    },
+    }
 })
 
 const hotelSliceReducer = hotelSlice.reducer

@@ -13,7 +13,8 @@ import {hotelSlice} from "../../store/reducers/HotelsSlice";
 const CardIcon = (props: any) => {
     const {
         addFavoriteHotel,
-        deleteFavoriteHotel
+        deleteFavoriteHotel,
+        outputDateStr
     } = props
     const {hotels} = useAppSelector(state => state.hotelReducer)
     const dispatch = useAppDispatch()
@@ -37,9 +38,10 @@ const CardIcon = (props: any) => {
                            <Card
                                deleteFavoriteHotel={deleteFavoriteHotel}
                                hotelId={item.hotelId}
-                               onClick={() => addFavoriteHotel(item.hotelId)}
+                               addFavoriteHotel={() => addFavoriteHotel(item.hotelId)}
                                hotelName={item.hotelName}
                                stars={item.stars}
+                               outputDateStr={outputDateStr}
                                price={item.priceAvg}
                            />
                 </div>

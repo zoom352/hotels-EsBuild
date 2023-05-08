@@ -1,10 +1,12 @@
 import {combineReducers, configureStore, Middleware} from "@reduxjs/toolkit";
 import hotelReducer from "./reducers/HotelsSlice"
 import {hotelAPI} from "../services/PostService";
+import isAuthReducer from "./reducers/AuthSlice";
 
 const rootReducer = combineReducers({
     hotelReducer,
-    [hotelAPI.reducerPath]: hotelAPI.reducer
+    isAuthReducer
+    // [hotelAPI.reducerPath]: hotelAPI.reducer
 })
 
 const localStorageMiddleware: Middleware = store => next => action => {
