@@ -40,3 +40,9 @@
     background: #41522E;
     border-radius: 2px;       /* округлось бегунка */
 }
+
+.exit {
+    cursor: pointer;
+    position: absolute;
+    margin-left: 80%;
+}

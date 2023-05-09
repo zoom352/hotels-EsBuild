@@ -4,7 +4,8 @@ import {UseInput} from "../../hooks/UseInput";
 import {useNavigate} from "react-router-dom";
 import {RouteNames} from "../../router";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {isAuthSlice} from "../../store/reducers/AuthSlice";
+import {isAuthSlice} from "../../store/reducers/AuthSlice"
+import "./login.modile.css"
 
 const Login = () => {
     const dispatch = useAppDispatch()
@@ -12,7 +13,7 @@ const Login = () => {
     const email = UseInput("", {isEmpty: true, minLength: 3, maxLengthError: 25, emailError: true})
     const password = UseInput("", {isEmpty: true, minLength: 5, maxLengthError: 8})
 
-    return <div>
+    return <div className="wrapper">
         <h1>Register</h1>
         {(email.isDirty && email.isEmpty) && <div style={{color: "red"}}>Area cannot be empty</div>}
         {(email.isDirty && email.minLengthError) && <div style={{color: "red"}}>incorrect length</div>}

@@ -34,8 +34,7 @@ export const hotelSlice = createSlice({
         },
         hotelsFetchingSuccess(state, action: PayloadAction<IHotel[]>) {
             state.isLoading = false,
-            state.error = "",
-            state.hotels = action.payload
+            state.error = ""
         },
         hotelsFetchingError(state, action: PayloadAction<string>) {
             state.isLoading = false,
@@ -63,9 +62,16 @@ export const hotelSlice = createSlice({
         },
         favoriteHotelsDelete(state, action: PayloadAction<any>) {
             state.favoriteHotels = state.favoriteHotels.filter((item: any) => item.hotelId !== action.payload.hotelId)
-            state.hotels.map((item: any) => {
+            state.hotels.map((item: IHotel) => {
                 if(item.hotelId === action.payload.hotelId) {
                     item.color = ""
+                }
+            })
+        },
+        checkHotelsRestart(state, action: PayloadAction<any>) {
+            state.hotels.map((item: any) => {
+                if(item.hotelId === action.payload.hotelId) {
+                    item.color = "heartRed"
                 }
             })
         },

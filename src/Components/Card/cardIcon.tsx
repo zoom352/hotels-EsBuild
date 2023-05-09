@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "./card.module.css"
 // @ts-ignore
 import roof from "../../../assets/roof.png"
@@ -16,7 +16,7 @@ const CardIcon = (props: any) => {
         deleteFavoriteHotel,
         outputDateStr
     } = props
-    const {hotels} = useAppSelector(state => state.hotelReducer)
+    const {hotels, favoriteHotels} = useAppSelector(state => state.hotelReducer)
     const dispatch = useAppDispatch()
 
     // const onClick = (hotelId: any) => {
@@ -24,6 +24,20 @@ const CardIcon = (props: any) => {
     //         hotelId
     //     }))
     // }
+        // favoriteHotels.map((item: any) => {
+        //     if(item.hotelId === hotelId) {
+        //         setHeart([item.color])
+        //     }
+        // })
+        // item.color = "heartRed"
+    useEffect(() => {
+        favoriteHotels.map((item: any) => {
+            const hotelId = item.hotelId
+                dispatch(hotelSlice.actions.checkHotelsRestart({
+                    hotelId
+                }))
+        })
+    }, [])
 
     return (
         <div>

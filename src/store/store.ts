@@ -6,7 +6,6 @@ import isAuthReducer from "./reducers/AuthSlice";
 const rootReducer = combineReducers({
     hotelReducer,
     isAuthReducer
-    // [hotelAPI.reducerPath]: hotelAPI.reducer
 })
 
 const localStorageMiddleware: Middleware = store => next => action => {
@@ -15,17 +14,14 @@ const localStorageMiddleware: Middleware = store => next => action => {
     return result;
 }
 
-const persistedState = localStorage.getItem('state')
-    ? JSON.parse(localStorage.getItem('state'))
-    : {}
+const persistedState: RootState = JSON.parse(localStorage.getItem("state") || "null") ?? undefined
 
 export const setupStore = () => {
     return configureStore({
         reducer: rootReducer,
         preloadedState: persistedState,
-        // middleware: [localStorageMiddleware]
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(localStorageMiddleware) // hotelAPI.middleware
+            getDefaultMiddleware().concat(localStorageMiddleware)
     })
 }
 

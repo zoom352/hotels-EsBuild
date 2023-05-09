@@ -1,9 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Like from "../Like/like";
 import Rating from "../rating/rating";
-import {useAppSelector} from "../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {hotelSlice} from "../../store/reducers/HotelsSlice";
 
-const Card = (props: any) => {
+interface Props {
+    withoutIcon?: boolean,
+    hotelName: string,
+    stars: number,
+    price: number,
+    deleteFavoriteHotel: any,
+    addFavoriteHotel?: () => void,
+    hotelId: number,
+    outputDateStr: string
+}
+
+const Card = (props: Props) => {
     const {
         withoutIcon,
         hotelName,
@@ -15,8 +27,10 @@ const Card = (props: any) => {
         outputDateStr
     } = props
     const {
-        days
+        days,
+        favoriteHotels
     } = useAppSelector(state => state.hotelReducer)
+    const dispatch = useAppDispatch()
 
     return (
         <>
@@ -42,10 +56,6 @@ const Card = (props: any) => {
                     </div>
                 </div>
             </div>
-            {/*<div className="wrapPrice">*/}
-            {/*    <p className="price">Price:</p>*/}
-            {/*    <p className="valut">23000 р.</p>*/}
-            {/*</div>*/}
             {withoutIcon && <hr/>}
         </>
     );

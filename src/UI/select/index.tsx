@@ -8,7 +8,6 @@ type Option = {
 type SelectProps = {
     options: Option[],
     defaultValue: string | number,
-    // value: string | number | undefined;
     onChange: ChangeEventHandler<HTMLSelectElement>
 }
 

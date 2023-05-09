@@ -10,6 +10,9 @@ import {fetchHotelsThunk} from "../../store/reducers/ActionCreators";
 import {hotelSlice} from "../../store/reducers/HotelsSlice";
 import Select from "../../UI/select"
 import {IHotel} from "../../models/IHotel";
+import {RouteNames} from "../../router";
+import {isAuthSlice} from "../../store/reducers/AuthSlice";
+import {useNavigate} from "react-router-dom";
 
 const SliderData = [
     {
@@ -46,23 +49,15 @@ const rating = [
 
 const HotelList = () => {
     const {
-        hotels,
-        days,
         isLoading,
         checkIn,
         query,
         favoriteHotels
     } = useAppSelector(state => state.hotelReducer)
     const dispatch = useAppDispatch()
-    const [selectedFruit, setSelectedFruit] = useState<string | null>(null);
+    const navigate = useNavigate()
 
-    const selectSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = event.target.value
-        const fruit: any = getFruitByValue(value)
-        setSelectedFruit(fruit)
-    }
-
-    function getFruitByValue (event: React.ChangeEvent<HTMLSelectElement>) {
+    function getSelectByValue (event: React.ChangeEvent<HTMLSelectElement>) {
         const value = event.target.value
         switch (value) {
             case 'AscendingPrice':
@@ -88,9 +83,9 @@ const HotelList = () => {
     const inputDate = new Date(checkIn)
 
     // Получаем день, месяц и год из объекта Date
-    const day = inputDate.getDate();
-    const month = inputDate.toLocaleString("default", { month: "long" });
-    const year = inputDate.getFullYear();
+    const day = inputDate.getDate()
+    const month = inputDate.toLocaleString("default", { month: "long" })
+    const year = inputDate.getFullYear()
 
     // Создаем новую строку в формате "день месяц год"
     const outputDateStr = `${day} ${month} ${year}`;
@@ -99,13 +94,13 @@ const HotelList = () => {
         dispatch(fetchHotelsThunk())
     }, [])
 
-    const deleteFavoriteHotel = (hotelId: any) => {
+    const deleteFavoriteHotel = (hotelId: string) => {
         dispatch(hotelSlice.actions.favoriteHotelsDelete({
             hotelId
         }))
     }
 
-    const addFavoriteHotel = (hotelId: any) => {
+    const addFavoriteHotel = (hotelId: string) => {
         dispatch(hotelSlice.actions.favoriteHotelsAdd({
             hotelId
         }))
@@ -113,6 +108,10 @@ const HotelList = () => {
 
     return (
         <div className="wrap">
+            <h2 className="exit" onClick={() => {
+                navigate(RouteNames.LOGIN)
+                dispatch(isAuthSlice.actions.setIsAuth(false))}
+            }>Exit</h2>
             <div className="wrapperBlocks">
                 <WorkBox height={464} width={402}>
                     <SearchHotels />
@@ -122,16 +121,16 @@ const HotelList = () => {
                         <Select
                             defaultValue="default"
                             options={Price}
-                            onChange={getFruitByValue}
+                            onChange={getSelectByValue}
                         />
                         <Select
                             defaultValue="default"
                             options={rating}
-                            onChange={getFruitByValue}
+                            onChange={getSelectByValue}
                         />
                         <h2 style={{ marginTop: "19px"}}>Favorites</h2>
                         <div style={{height: "420px"}} className="prokrutka">
-                            {favoriteHotels.map((item: any) => {
+                            {favoriteHotels.map((item: IHotel) => {
                                 return (
                                     <Card
                                         outputDateStr={outputDateStr}
@@ -160,7 +159,7 @@ const HotelList = () => {
                         <h3>add to favorites: {favoriteHotels.length} hotels</h3>
                         <div style={{height: "680px"}} className="prokrutka">
                             {isLoading ?
-                                <h2>Loading</h2>
+                                <h2>Loading...</h2>
                                 : <CardIcon
                                       outputDateStr={outputDateStr}
                                       deleteFavoriteHotel={deleteFavoriteHotel}

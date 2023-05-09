@@ -1,16 +1,12 @@
 export interface IHotel {
-    // "label": string,
-    // "locationName": string,
-    // "locationId": string,
-    // "id": string,
-    // "fullName": string,
-    // "location": {
-    //     "lat": string,
-    //     "lon": string
-    // }
+    locationId: number
     hotelId: number,
-    query: string,
-    lang: string,
-    lookFor: string,
-    limit: string
+    pricePercentile: Object
+    stars: number
+    priceFrom: number
+    hotelName: string
+    priceAvg: number
+    location: Object
+    geo: Object,
+    color?: string
 }

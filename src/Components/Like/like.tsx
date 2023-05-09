@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import "./like.module.css"
-import {useAppSelector} from "../../hooks/redux"
+import {useAppDispatch, useAppSelector} from "../../hooks/redux"
+import {hotelSlice} from "../../store/reducers/HotelsSlice";
 
 const Like = (
     {addFavoriteHotel, hotelId, deleteFavoriteHotel}: any
@@ -10,6 +11,7 @@ const Like = (
         favoriteHotels,
         hotels
     } = useAppSelector(state => state.hotelReducer)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         favoriteHotels.map((item: any) => {
@@ -23,6 +25,18 @@ const Like = (
             }
         })
     }, [favoriteHotels])
+
+    // useEffect(() => {
+    //     // favoriteHotels.map((item: any) => {
+    //     //     if(item.hotelId === hotelId) {
+    //     //         setHeart([item.color])
+    //     //     }
+    //     // })
+    //             // item.color = "heartRed"
+    //             dispatch(hotelSlice.actions.checkHotelsRestart({
+    //                 hotelId
+    //             }))
+    // }, [])
 
     const likeChange = () => {
         if (heart.join(" ") === "heartRed") {
